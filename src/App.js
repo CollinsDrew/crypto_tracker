@@ -1,6 +1,7 @@
 import './App.css';
 import React,{useState,useEffect} from 'react';
 import axios from 'axios';
+import Coins from './Coins';
 
 
 function App() {
@@ -34,7 +35,20 @@ function App() {
         </form>
       </div>
 
-      
+    {filteredCoins.map(coin=>{
+      return(
+        <Coins key={coin.id}
+        name        = {coin.name}
+        image       = {coin.image}
+        symbol      = {coin.symbol}
+        marketcap   = {coin.market_cap}
+        price       = {coin.current_price}
+        priceChange = {coin.price_change_percentage_24hr}
+        volume      = {coin.total_volume}
+        />
+      )
+    })}
+
     </div>
 
   );
