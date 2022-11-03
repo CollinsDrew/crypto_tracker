@@ -4,12 +4,15 @@ import "./App.css";
 import Coins from "./Coins";
 
 function App() {
+
+  // State
   const [coins, setCoins] = useState([]);
   const [search, setSearch] = useState("");
   // const timer = setTimeout(() => {
   //   console.log('This will run after 1 second!')
   // }, 300000);
 
+  // Hooks
   // API and render as soon as page is loaded
   useEffect(() => {
     axios
@@ -21,7 +24,7 @@ function App() {
         console.log(res.data);
       })
       .catch((error) => console.log(error));
-  }, []);
+  }, [search]);
 
   const handleChange = (e) => {
     setSearch(e.target.value);
@@ -30,6 +33,12 @@ function App() {
   const filteredCoins = coins.filter((coin) =>
     coin.name.toLowerCase().includes(search.toLowerCase())
   );
+
+  // Methods
+  const showData = (coin) =>{
+    console.log(coin);
+  }
+  
 
   return (
     <div className="coin-app">
@@ -57,6 +66,7 @@ function App() {
             priceChange={coin.price_change_percentage_24h}
             volume={coin.total_volume}
             index={index}
+            
           />
         );
       })}

@@ -1,6 +1,7 @@
 .coin-container {
   display: flex;
   justify-content: center;
+  flex-direction: column;
 }
 
 .coin-row {
@@ -70,4 +71,11 @@
 
 .green {
   color: #78e08f;
+}
+
+/* Extra content*/
+.extra-box{
+  background-color: white;
+  border: 1px solid black;
+  padding:10px;
 }

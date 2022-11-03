@@ -1,5 +1,8 @@
-import React from "react";
+import axios from "axios";
+import React,{useState} from "react";
 import "./Coins.css";
+
+
 export const Coins = ({
   name,
   image,
@@ -10,11 +13,36 @@ export const Coins = ({
   marketcap,
   index,
 }) => {
-  const showDisplay = true;
-  const _index = 0;
+  const [display,setDisplay] = useState(false);
+  const [coin,setCoin] = useState('');
+  // From the apis
+  const [rank,setRank] = useState();
+
+  const url = "https://api.coingecko.com/api/v3/coins/"
+
+
+  // Methods
+  const coinClicked = async () =>{
+    console.log(name);
+    setCoin(name);
+    setDisplay(true);
+
+    const lowerCase = name.toLowerCase();
+
+    console.log(lowerCase);
+
+    const reqData = await axios.get(`https://api.coingecko.com/api/v3/coins/${lowerCase}`);
+    console.log(reqData.data);
+
+    const _rank = reqData.data.coingecko_rank;
+
+    setRank(_rank);
+
+  }
 
   return (
-    <div className="coin-container">
+    <div className="coin-container" onClick={coinClicked}>
+
       <div className="coin-row">
         {/* Coin div */}
         <div className="coin">
@@ -41,14 +69,20 @@ export const Coins = ({
           </p>
         </div>
         {/* Extra Coin data for charts div */}
-        {showDisplay && index === _index ? (
-          <div className="row">
-            <p>Charts</p>
-          </div>
-        ) : (
-          ""
-        )}
+
+        
       </div>
+
+
+      {display  ? 
+          <div className="row extra-box">
+            <p>Charts for {name}</p>
+            <h1> Rank: {rank}</h1>
+          </div>
+         : 
+          ""
+        }
+     
     </div>
   );
 };
