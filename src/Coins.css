@@ -48,9 +48,9 @@
   width: 100%;
 }
 
-.coin-data:hover {
+/* .coin-data:hover {
   box-shadow: 0 8px 16px 0 #5f23a5;
-}
+} */
 
 .coin-price {
   width: 110px;
@@ -65,9 +65,9 @@
   width: 100%;
 }
 .red {
-  color: #f006;
+  color: #eb2f06;
 }
 
 .green {
-  color: green;
+  color: #78e08f;
 }
