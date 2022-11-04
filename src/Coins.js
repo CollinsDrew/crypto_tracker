@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import "./Coins.css";
+import { Line } from "react-chartjs-2";
 
 export const Coins = ({
   name,
@@ -22,6 +23,8 @@ export const Coins = ({
   const [totalSupply, setTotalSupply] = useState();
   const [circulatingSupply, setCirculatingSupply] = useState();
   const [ath, setAth] = useState();
+  //For charts
+  // const [chartData, setChartData] = useState({});
 
   //const url = "https://api.coingecko.com/api/v3/coins/";
 
@@ -39,7 +42,17 @@ export const Coins = ({
       `https://api.coingecko.com/api/v3/coins/${lowerCase}`
     );
     console.log(reqData.data);
+    //api for charts
+    //id,from,to
+    const from = 1667508894;
+    const to = 1667595294;
+    const reqAPI = `https://api.coingecko.com/api/v3/coins/${lowerCase}/market_chart/range?vs_currency=usd&from=${from}&to=${to}`;
+    //`https://api.coingecko.com/api/v3/coins/bitcoin/market_chart/range?vs_currency=usd&from=1667508894&to=1667595294`
 
+    const hourly = await axios.get(reqAPI);
+    console.log(hourly.data);
+
+    // Data for info drop box when a single coin is clicked
     const _rank = reqData.data.coingecko_rank;
     const _description = reqData.data.description.en;
     const _dailyHigh = reqData.data.market_data.high_24h.usd;
@@ -84,12 +97,14 @@ export const Coins = ({
             Mkt Cap: ${marketcap.toLocaleString()}
           </p>
         </div>
+
         {/* Extra Coin data for charts div */}
       </div>
 
       {display ? (
         <div className="row extra-box">
           {/* <p>{name}</p> */}
+
           <br></br>
           <h6 className="info"> Rank: {rank}</h6>
           <br></br>
