@@ -1,7 +1,6 @@
 import axios from "axios";
-import React,{useState} from "react";
+import React, { useState } from "react";
 import "./Coins.css";
-
 
 export const Coins = ({
   name,
@@ -13,36 +12,53 @@ export const Coins = ({
   marketcap,
   index,
 }) => {
-  const [display,setDisplay] = useState(false);
-  const [coin,setCoin] = useState('');
+  const [display, setDisplay] = useState(false);
+  const [coin, setCoin] = useState("");
   // From the apis
-  const [rank,setRank] = useState();
+  const [rank, setRank] = useState();
+  const [description, setDescription] = useState();
+  const [dailyHigh, setDailyHigh] = useState();
+  const [dailyLow, setDailyLow] = useState();
+  const [totalSupply, setTotalSupply] = useState();
+  const [circulatingSupply, setCirculatingSupply] = useState();
+  const [ath, setAth] = useState();
 
-  const url = "https://api.coingecko.com/api/v3/coins/"
-
+  //const url = "https://api.coingecko.com/api/v3/coins/";
 
   // Methods
-  const coinClicked = async () =>{
+  const coinClicked = async () => {
     console.log(name);
     setCoin(name);
     setDisplay(true);
 
     const lowerCase = name.toLowerCase();
 
-    console.log(lowerCase);
+    // console.log(lowerCase);
 
-    const reqData = await axios.get(`https://api.coingecko.com/api/v3/coins/${lowerCase}`);
+    const reqData = await axios.get(
+      `https://api.coingecko.com/api/v3/coins/${lowerCase}`
+    );
     console.log(reqData.data);
 
     const _rank = reqData.data.coingecko_rank;
+    const _description = reqData.data.description.en;
+    const _dailyHigh = reqData.data.market_data.high_24h.usd;
+    const _dailyLow = reqData.data.market_data.low_24h.usd;
+    const _totalSupply = reqData.data.market_data.total_supply;
+    const _circulatingSupply = reqData.data.market_data.circulating_supply;
+    const _ath = reqData.data.market_data.ath.usd;
 
     setRank(_rank);
-
-  }
+    setDescription(_description);
+    setDailyHigh(_dailyHigh);
+    setDailyLow(_dailyLow);
+    setTotalSupply(_totalSupply);
+    setCirculatingSupply(_circulatingSupply);
+    setAth(_ath);
+  };
 
   return (
     <div className="coin-container" onClick={coinClicked}>
-
       <div className="coin-row">
         {/* Coin div */}
         <div className="coin">
@@ -56,7 +72,7 @@ export const Coins = ({
         <div className="coin-data">
           <p className="coin-price">${price}</p>
 
-          <p className="coin-volume">${volume.toLocaleString()}</p>
+          {/* <p className="coin-volume">${volume.toLocaleString()}</p> */}
 
           {priceChange < 0 ? (
             <p className="coin-percent red">{priceChange.toFixed(2)}%</p>
@@ -69,20 +85,29 @@ export const Coins = ({
           </p>
         </div>
         {/* Extra Coin data for charts div */}
-
-        
       </div>
 
-
-      {display  ? 
-          <div className="row extra-box">
-            <p>Charts for {name}</p>
-            <h1> Rank: {rank}</h1>
-          </div>
-         : 
-          ""
-        }
-     
+      {display ? (
+        <div className="row extra-box">
+          {/* <p>{name}</p> */}
+          <br></br>
+          <h6 className="info"> Rank: {rank}</h6>
+          <br></br>
+          <h6 className="info"> 24hr High: ${dailyHigh}</h6>
+          <br></br>
+          <h6 className="info"> 24hr Low: ${dailyLow}</h6>
+          <br></br>
+          <h6 className="info"> Total Supply: {totalSupply}</h6>
+          <br></br>
+          <h6 className="info"> Circulating Supply: {circulatingSupply}</h6>
+          <br></br>
+          <h6 className="info"> All Time High: ${ath}</h6>
+          <br></br>
+          <h4 className="info">{description}</h4>
+        </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 };

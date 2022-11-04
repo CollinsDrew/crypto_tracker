@@ -4,10 +4,10 @@ import "./App.css";
 import Coins from "./Coins";
 
 function App() {
-
   // State
   const [coins, setCoins] = useState([]);
   const [search, setSearch] = useState("");
+  const [sample, setSample] = useState("");
   // const timer = setTimeout(() => {
   //   console.log('This will run after 1 second!')
   // }, 300000);
@@ -21,10 +21,10 @@ function App() {
       )
       .then((res) => {
         setCoins(res.data);
-        console.log(res.data);
+        // console.log(res.data);
       })
       .catch((error) => console.log(error));
-  }, [search]);
+  }, [sample]);
 
   const handleChange = (e) => {
     setSearch(e.target.value);
@@ -35,10 +35,9 @@ function App() {
   );
 
   // Methods
-  const showData = (coin) =>{
-    console.log(coin);
-  }
-  
+  const showData = (coin) => {
+    // console.log(coin);
+  };
 
   return (
     <div className="coin-app">
@@ -66,7 +65,6 @@ function App() {
             priceChange={coin.price_change_percentage_24h}
             volume={coin.total_volume}
             index={index}
-            
           />
         );
       })}
