@@ -1,7 +1,10 @@
 import axios from "axios";
 import React, { useState } from "react";
 import "./Coins.css";
-import { Line } from "react-chartjs-2";
+//import { Line } from "react-chartjs-2";
+//import BarChart from "./Bar";
+import LineChart from "./LineChart";
+
 
 export const Coins = ({
   name,
@@ -24,13 +27,14 @@ export const Coins = ({
   const [circulatingSupply, setCirculatingSupply] = useState();
   const [ath, setAth] = useState();
   //For charts
-  // const [chartData, setChartData] = useState({});
+  const [chartData, setChartData] = useState({});
+  const [lab,setLab] = useState([]);
 
   //const url = "https://api.coingecko.com/api/v3/coins/";
 
   // Methods
   const coinClicked = async () => {
-    console.log(name);
+    //console.log(name);
     setCoin(name);
     setDisplay(true);
 
@@ -41,16 +45,16 @@ export const Coins = ({
     const reqData = await axios.get(
       `https://api.coingecko.com/api/v3/coins/${lowerCase}`
     );
-    console.log(reqData.data);
-    //api for charts
-    //id,from,to
+    //console.log(reqData.data);
+
     const from = 1667508894;
     const to = 1667595294;
     const reqAPI = `https://api.coingecko.com/api/v3/coins/${lowerCase}/market_chart/range?vs_currency=usd&from=${from}&to=${to}`;
-    //`https://api.coingecko.com/api/v3/coins/bitcoin/market_chart/range?vs_currency=usd&from=1667508894&to=1667595294`
 
     const hourly = await axios.get(reqAPI);
-    console.log(hourly.data);
+
+    setLab(hourly.data.prices);
+    console.log(lab);
 
     // Data for info drop box when a single coin is clicked
     const _rank = reqData.data.coingecko_rank;
@@ -68,6 +72,9 @@ export const Coins = ({
     setTotalSupply(_totalSupply);
     setCirculatingSupply(_circulatingSupply);
     setAth(_ath);
+
+    
+
   };
 
   return (
@@ -104,7 +111,7 @@ export const Coins = ({
       {display ? (
         <div className="row extra-box">
           {/* <p>{name}</p> */}
-
+          <LineChart chartData={lab}/>
           <br></br>
           <h6 className="info"> Rank: {rank}</h6>
           <br></br>

@@ -52,3 +52,11 @@
 .coin-input:hover {
   box-shadow: 0 8px 16px 0 #5f23a5;
 }
+
+.LineChart{
+  background-color: #0e0f26;
+  border:1px solid white;
+  width:100vh;
+  height:auto;
+  float: left;
+}
