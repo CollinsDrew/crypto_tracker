@@ -42,8 +42,13 @@ function App() {
   return (
     <div className="coin-app">
       <div className="coin-search">
-        <img src={require("./CC.png")} alt="logo"></img>
-        {/* <h1 className="coin-text">Crypto Collins</h1> */}
+        <img
+          className="header"
+          src={require("./CC_header.png")}
+          alt="logo"
+        ></img>
+
+        {/* Search Button element */}
         <form>
           <input
             type="text"

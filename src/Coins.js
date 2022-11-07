@@ -1,7 +1,9 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import "./Coins.css";
 import { Line } from "react-chartjs-2";
+//import { setLabels } from "react-chartjs-2/dist/utils";
+import LineChart from "./LineChart";
 
 export const Coins = ({
   name,
@@ -23,6 +25,7 @@ export const Coins = ({
   const [totalSupply, setTotalSupply] = useState();
   const [circulatingSupply, setCirculatingSupply] = useState();
   const [ath, setAth] = useState();
+  const [lab, setLab] = useState([]);
   //For charts
   // const [chartData, setChartData] = useState({});
 
@@ -36,12 +39,11 @@ export const Coins = ({
 
     const lowerCase = name.toLowerCase();
 
-    // console.log(lowerCase);
-
     const reqData = await axios.get(
       `https://api.coingecko.com/api/v3/coins/${lowerCase}`
     );
-    console.log(reqData.data);
+    // console.log(reqData.data);
+
     //api for charts
     //id,from,to
     const from = 1667508894;
@@ -50,7 +52,9 @@ export const Coins = ({
     //`https://api.coingecko.com/api/v3/coins/bitcoin/market_chart/range?vs_currency=usd&from=1667508894&to=1667595294`
 
     const hourly = await axios.get(reqAPI);
-    console.log(hourly.data);
+
+    setLab(hourly.data.prices);
+    console.log(lab);
 
     // Data for info drop box when a single coin is clicked
     const _rank = reqData.data.coingecko_rank;
@@ -104,7 +108,7 @@ export const Coins = ({
       {display ? (
         <div className="row extra-box">
           {/* <p>{name}</p> */}
-
+          <LineChart chartData={lab} />
           <br></br>
           <h6 className="info"> Rank: {rank}</h6>
           <br></br>
