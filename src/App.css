@@ -47,10 +47,11 @@
 
 .coin-input::placeholder {
   font-size: large;
+  color: white;
 }
 
 .coin-input:hover {
-  box-shadow: 0 8px 16px 0 #5f23a5;
+  filter: drop-shadow(0px 0px 15px #5f23a5);
 }
 
 .LineChart {
@@ -61,10 +62,12 @@
   display: block;
   margin-left: auto;
   margin-right: auto;
+  transition: all 0.5s ease-out;
 }
 
 .LineChart:hover {
-  box-shadow: 0 8px 16px 0 #5f23a5;
+  border-radius: 16px;
+  filter: drop-shadow(0px 0px 10px #5f23a5);
 }
 
 .header {
