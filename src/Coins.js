@@ -54,7 +54,6 @@ export const Coins = ({
     const hourly = await axios.get(reqAPI);
 
     setLab(hourly.data.prices);
-    console.log(lab);
 
     // Data for info drop box when a single coin is clicked
     const _rank = reqData.data.coingecko_rank;

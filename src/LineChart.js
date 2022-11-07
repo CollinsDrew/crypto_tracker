@@ -5,7 +5,9 @@ import "./App.css";
 
 const LineChart = (props) => {
   const _labels = props.chartData.map((value) => {
-    return value[0];
+    const convert = new Date(value[0]);
+
+    return convert.toTimeString();
   });
 
   const _data = props.chartData.map((value) => {

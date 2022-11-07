@@ -9,7 +9,7 @@ function App() {
   const [search, setSearch] = useState("");
   const [sample, setSample] = useState("");
   // const timer = setTimeout(() => {
-  //   console.log('This will run after 1 second!')
+  //   console.log('This will run after 30 seconds!')
   // }, 300000);
 
   // Hooks
