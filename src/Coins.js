@@ -106,9 +106,8 @@ export const Coins = ({
 
       {display ? (
         <div className="row extra-box">
-          {/* <p>{name}</p> */}
           <LineChart chartData={lab} />
-          <br></br>
+          {/* <br></br>
           <h6 className="info"> Rank: {rank}</h6>
           <br></br>
           <h6 className="info"> 24hr High: ${dailyHigh}</h6>
@@ -121,6 +120,27 @@ export const Coins = ({
           <br></br>
           <h6 className="info"> All Time High: ${ath}</h6>
           <br></br>
+          <h4 className="info">{description}</h4> */}
+          <table>
+            <tr>
+              <th>Rank</th>
+              <th>24hr High</th>
+              <th>24hr Low</th>
+              <th>Total supply</th>
+              <th>Circulating Supply</th>
+              <th>All Time High</th>
+              {/* <th>Introduction</th> */}
+            </tr>
+            <tr>
+              <td>{rank}</td>
+              <td>${dailyHigh}</td>
+              <td>${dailyLow}</td>
+              <td>{totalSupply}</td>
+              <td>{circulatingSupply}</td>
+              <td>${ath}</td>
+              {/* <td>{description}</td> */}
+            </tr>
+          </table>
           <h4 className="info">{description}</h4>
         </div>
       ) : (
