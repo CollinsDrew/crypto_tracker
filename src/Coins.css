@@ -11,7 +11,8 @@
   justify-items: start;
   align-items: center;
   border-bottom: 1px solid #302399;
-  width: 900px;
+  max-width: 900px;
+  width: 100%;
   margin: 20px 0;
   padding: 12px;
   cursor: pointer;
@@ -92,6 +93,11 @@
 .info {
   font-family: ‘Montserrat’, sans-serif;
   color: fff;
+  border-bottom: 1px solid #302399;
+  padding-bottom: 8px;
+  max-width: 900px;
+  width: 100%;
+  white-space: break-spaces;
   /* text-align: center; */
 }
 

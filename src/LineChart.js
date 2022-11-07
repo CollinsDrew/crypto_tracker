@@ -2,10 +2,12 @@ import React from "react";
 import { Line } from "react-chartjs-2";
 import Chart from "chart.js/auto";
 import "./App.css";
+import moment from "react-moment";
 
 const LineChart = (props) => {
   const _labels = props.chartData.map((value) => {
     const convert = new Date(value[0]);
+    // return moment(convert).format("h:mm:ss a");
 
     return convert.toTimeString();
   });
