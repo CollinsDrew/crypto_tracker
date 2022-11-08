@@ -14,10 +14,6 @@ function App() {
   const [account, setAccount] = useState("");
   const [bal, setBal] = useState(10000);
 
-  // const timer = setTimeout(() => {
-  //   console.log('This will run after 30 seconds!')
-  // }, 300000);
-
   // Hooks
   // API and render as soon as page is loaded
   useEffect(() => {
