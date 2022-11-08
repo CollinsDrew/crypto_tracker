@@ -73,6 +73,12 @@ export const Coins = ({
     setAth(_ath);
   };
 
+  // Strips href tags from API
+  function stripTags(input) {
+    const doc = new DOMParser().parseFromString(description, "text/html");
+    return doc.body.textContent || "";
+  }
+
   return (
     <div className="coin-container" onClick={coinClicked}>
       <div className="coin-row">
@@ -129,7 +135,6 @@ export const Coins = ({
               <th>Total supply</th>
               <th>Circulating Supply</th>
               <th>All Time High</th>
-              {/* <th>Introduction</th> */}
             </tr>
             <tr>
               <td>{rank}</td>
@@ -138,10 +143,9 @@ export const Coins = ({
               <td>{totalSupply}</td>
               <td>{circulatingSupply}</td>
               <td>${ath}</td>
-              {/* <td>{description}</td> */}
             </tr>
           </table>
-          <h4 className="info">{description}</h4>
+          <h4 className="info">{stripTags(coin.description)}</h4>
         </div>
       ) : (
         ""
