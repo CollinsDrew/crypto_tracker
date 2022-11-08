@@ -15,6 +15,8 @@ export const Coins = ({
   priceChange,
   marketcap,
   index,
+  account,
+  bal
 }) => {
   const [display, setDisplay] = useState(false);
   const [coin, setCoin] = useState("");
@@ -54,7 +56,11 @@ export const Coins = ({
     const hourly = await axios.get(reqAPI);
 
     setLab(hourly.data.prices);
-    console.log(lab);
+    const dates = lab.map((value)=>{
+      const convert = new Date(value[0]);
+      return (convert.getHours());
+    })
+    console.log(dates);
 
     // Data for info drop box when a single coin is clicked
     const _rank = reqData.data.coingecko_rank;
@@ -76,6 +82,18 @@ export const Coins = ({
     
 
   };
+
+  // Buy Coin
+  const buyCoin = async(event) =>{
+
+    event.preventDefault();
+
+    const _coin = event.target.name.value;
+    const _name = event.target.buy.value;
+
+    console.log(`http://localhost:8081/buy/coins?name=${_name}&coin=${_coin}&account=${account}&bal=${bal}&current_price=${price}`);
+
+  }
 
   return (
     <div className="coin-container" onClick={coinClicked}>
@@ -113,6 +131,15 @@ export const Coins = ({
           {/* <p>{name}</p> */}
           <LineChart chartData={lab}/>
           <br></br>
+
+          <form onSubmit={buyCoin}>
+          <input type="number" name="buy" required/>
+          <input type="hidden" name="name" value={name}/>
+          <button type="submit">BUY</button>
+          </form>
+          
+          
+          
           <h6 className="info"> Rank: {rank}</h6>
           <br></br>
           <h6 className="info"> 24hr High: ${dailyHigh}</h6>

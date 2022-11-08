@@ -2,16 +2,17 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./App.css";
 import Coins from "./Coins";
+// Web3
+import { ethers } from "ethers";
 
 function App() {
   // State
   const [coins, setCoins] = useState([]);
   const [search, setSearch] = useState("");
   const [sample, setSample] = useState("");
-  // const timer = setTimeout(() => {
-  //   console.log('This will run after 1 second!')
-  // }, 300000);
-
+  // Web3
+  const [account,setAccount] = useState('');
+  const [bal,setBal] = useState(100);
   // Hooks
   // API and render as soon as page is loaded
   useEffect(() => {
@@ -39,11 +40,54 @@ function App() {
     // console.log(coin);
   };
 
+    // Method to connect to the wallet
+  // The method should be asynchronous for the user to be able to connect to the wallet
+  const connectWallet = async () =>{
+    if(window.ethereum){
+      console.log("You have what you need ;)")
+      // A Web3Provider wraps a standard Web3 provider, which is
+      // what MetaMask injects as window.ethereum into each page
+      const provider = new ethers.providers.Web3Provider(window.ethereum)
+
+      // MetaMask requires requesting permission to connect users accounts
+      await provider.send("eth_requestAccounts", []).then((res) =>{
+        setAccount(res[0]);
+        console.log("User has granted access to accounts")
+
+      }).catch(() =>{
+        console.log("User has denied access to accounts")
+        }
+        );
+
+      // The MetaMask plugin also allows signing transactions to
+      // send ether and pay to change state within the blockchain.
+      // For this, you need the account signer...
+      const signer = provider.getSigner(0)
+
+      console.log(signer);
+    }
+    else{
+      console.log("No Ethereum browser detected");
+    }
+  }
+
   return (
     <div className="coin-app">
+      <div className="btn-div">
+            <button onClick={connectWallet} className="btn">Connect Wallet</button><br/>
+      </div>
+      {account ? 
+      (
+      <div>
+          <h5>Welcome,{account}</h5>
+          <p>Balance: {bal}</p>
+      </div>
+      ): ""}
+      
       <div className="coin-search">
         <img src={require("./CC.png")} alt="logo"></img>
         {/* <h1 className="coin-text">Crypto Collins</h1> */}
+        
         <form>
           <input
             type="text"
@@ -65,6 +109,8 @@ function App() {
             priceChange={coin.price_change_percentage_24h}
             volume={coin.total_volume}
             index={index}
+            account={account}
+            bal={bal}
           />
         );
       })}
