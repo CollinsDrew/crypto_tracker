@@ -13,6 +13,7 @@ function App() {
   // Web3
   const [account, setAccount] = useState("");
   const [bal, setBal] = useState(10000);
+
   // const timer = setTimeout(() => {
   //   console.log('This will run after 30 seconds!')
   // }, 300000);
@@ -118,6 +119,7 @@ function App() {
             index={index}
             account={account}
             bal={bal}
+            position={coin.position}
           />
         );
       })}

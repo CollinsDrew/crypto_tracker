@@ -28,19 +28,19 @@ export const Coins = ({
   const [circulatingSupply, setCirculatingSupply] = useState();
   const [ath, setAth] = useState();
   const [lab, setLab] = useState([]);
+  const [position, setPosition] = useState("");
   //For charts
   // const [chartData, setChartData] = useState({});
 
   // For purchase form
   const [amount, setAmount] = useState();
-  const [position, setPosition] = useState();
   const [time, setTime] = useState();
 
   //const url = "https://api.coingecko.com/api/v3/coins/";
 
   // Methods
   const coinClicked = async () => {
-    console.log(name);
+    // console.log(name);
     setCoin(name);
     setDisplay(true);
 
@@ -90,12 +90,14 @@ export const Coins = ({
   const buyCoin = async (event) => {
     event.preventDefault();
 
+    console.log(position);
     const _coin = name;
     // const _name = event.target.buy.value;
     const _account = account;
-    const _amount = event.target.amount.value;
+    const _amount = event.target.buy.value;
     const _position = event.target.position.value;
-    const _time = event.target.time.value;
+    const _time = new Date();
+
     const _price = price;
     const _balance = bal;
 
@@ -109,11 +111,11 @@ export const Coins = ({
       balance: _balance,
     };
 
-    console.log(buyCoin);
-    console.log(obj);
-    // console.log
-    //   `http://localhost:8011/purchase/create?name=${_name}&coin=${_coin}&account=${account}&bal=${bal}&current_price=${price}`
-    // );
+    const reqAPi = "http://localhost:8011/purchase/create";
+
+    const sending = await axios.post(reqAPi, obj);
+
+    console.log(sending.data);
   };
 
   return (
@@ -187,10 +189,10 @@ export const Coins = ({
           <form className="purchase" onSubmit={buyCoin}>
             <input type="number" name="buy" required />
 
+            <input type="hidden" name="position" value="buy" />
             <input type="hidden" name="account" value={account} />
             <input type="hidden" name="coin" value={name} />
             <input type="hidden" name="amount" value={amount} />
-            <input type="hidden" name="position" value={position} />
             <input type="hidden" name="time" value={time} />
             <input type="hidden" name="currentPrice" value={price} />
             <input type="hidden" name="balance" value={bal} />

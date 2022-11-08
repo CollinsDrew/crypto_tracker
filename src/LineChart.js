@@ -9,7 +9,6 @@ const LineChart = (props) => {
     const convert = new Date(value[0]);
     const timeString = convert.toTimeString();
     const timeOnly = timeString.substr(0, timeString.indexOf(" "));
-    // return moment(convert).format("h:mm:ss a");
 
     return timeOnly;
   });
