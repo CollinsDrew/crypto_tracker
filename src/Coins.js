@@ -14,6 +14,8 @@ export const Coins = ({
   priceChange,
   marketcap,
   index,
+  account,
+  bal,
 }) => {
   const [display, setDisplay] = useState(false);
   const [coin, setCoin] = useState("");
@@ -28,6 +30,11 @@ export const Coins = ({
   const [lab, setLab] = useState([]);
   //For charts
   // const [chartData, setChartData] = useState({});
+
+  // For purchase form
+  const [amount, setAmount] = useState();
+  const [position, setPosition] = useState();
+  const [time, setTime] = useState();
 
   //const url = "https://api.coingecko.com/api/v3/coins/";
 
@@ -79,6 +86,36 @@ export const Coins = ({
     return doc.body.textContent || "";
   }
 
+  // Buy Coin
+  const buyCoin = async (event) => {
+    event.preventDefault();
+
+    const _coin = name;
+    // const _name = event.target.buy.value;
+    const _account = account;
+    const _amount = event.target.amount.value;
+    const _position = event.target.position.value;
+    const _time = event.target.time.value;
+    const _price = price;
+    const _balance = bal;
+
+    const obj = {
+      account: _account,
+      coin: _coin,
+      amount: _amount,
+      position: _position,
+      time: _time,
+      currentPrice: _price,
+      balance: _balance,
+    };
+
+    console.log(buyCoin);
+    console.log(obj);
+    // console.log
+    //   `http://localhost:8011/purchase/create?name=${_name}&coin=${_coin}&account=${account}&bal=${bal}&current_price=${price}`
+    // );
+  };
+
   return (
     <div className="coin-container" onClick={coinClicked}>
       <div className="coin-row">
@@ -113,6 +150,7 @@ export const Coins = ({
       {display ? (
         <div className="row extra-box">
           <LineChart chartData={lab} />
+
           {/* <br></br>
           <h6 className="info"> Rank: {rank}</h6>
           <br></br>
@@ -146,6 +184,20 @@ export const Coins = ({
             </tr>
           </table>
           <h4 className="info">{stripTags(coin.description)}</h4>
+          <form className="purchase" onSubmit={buyCoin}>
+            <input type="number" name="buy" required />
+
+            <input type="hidden" name="account" value={account} />
+            <input type="hidden" name="coin" value={name} />
+            <input type="hidden" name="amount" value={amount} />
+            <input type="hidden" name="position" value={position} />
+            <input type="hidden" name="time" value={time} />
+            <input type="hidden" name="currentPrice" value={price} />
+            <input type="hidden" name="balance" value={bal} />
+            <button className="button-86" type="submit">
+              BUY
+            </button>
+          </form>
         </div>
       ) : (
         ""

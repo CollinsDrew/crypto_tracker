@@ -7,9 +7,11 @@ import moment from "react-moment";
 const LineChart = (props) => {
   const _labels = props.chartData.map((value) => {
     const convert = new Date(value[0]);
+    const timeString = convert.toTimeString();
+    const timeOnly = timeString.substr(0, timeString.indexOf(" "));
     // return moment(convert).format("h:mm:ss a");
 
-    return convert.toTimeString();
+    return timeOnly;
   });
 
   const _data = props.chartData.map((value) => {
