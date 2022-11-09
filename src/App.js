@@ -4,6 +4,7 @@ import "./App.css";
 import Coins from "./Coins";
 // Web3
 import { ethers } from "ethers";
+import WalletProfile from "./Wallet";
 
 function App() {
   // State
@@ -24,6 +25,8 @@ function App() {
       .then((res) => {
         setCoins(res.data);
         // console.log(res.data);
+        const date = new Date();
+        console.log(date);
       })
       .catch((error) => console.log(error));
   }, [sample]);
@@ -80,7 +83,7 @@ function App() {
           src={require("./CC_header.png")}
           alt="logo"
         ></img>
-
+        <WalletProfile />
         {/* Search Button element */}
         <form>
           <input
@@ -98,7 +101,8 @@ function App() {
         <br />
       </div>
       <div className="wallet-info">
-        <h5>Welcome,{account}</h5>
+        <h5>Welcome to Crypto Collins , {account}</h5>
+        <br></br>
         <p>Balance: ${bal}</p>
       </div>
       {filteredCoins.map((coin, index) => {

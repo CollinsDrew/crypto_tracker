@@ -53,9 +53,25 @@ export const Coins = ({
 
     //api for charts
     //id,from,to
-    const from = 1667508894;
-    const to = 1667595294;
-    const reqAPI = `https://api.coingecko.com/api/v3/coins/${lowerCase}/market_chart/range?vs_currency=usd&from=${from}&to=${to}`;
+    // const from = 1667508894; // new Date(new Date().getTime() - 24 * 60 * 60 * 1000)
+    // const to = 1667595294; // new Date()
+    let currentDateObj = new Date();
+    // console.log(currentDateObj);
+    // const yesterdayDateObj = new Date(
+    currentDateObj.setTime(currentDateObj.getTime() - 24 * 60 * 60 * 1000);
+    // console.log(currentDateObj);
+    // );
+    // const numberOfMlSeconds = currentDateObj.getTime();
+    // const addMlSeconds = 24 * 60 * 60 * 1000;
+    // const newDateObj = new Date(numberOfMlSeconds - addMlSeconds);
+    const toDateUnix = Math.floor(currentDateObj.getTime() / 1000);
+    const fromDateUnix = toDateUnix - 24 * 60 * 60; //Math.floor(currentDateObj.getTime() / 1000);
+
+    console.log(currentDateObj);
+    console.log(fromDateUnix);
+    console.log(toDateUnix);
+
+    const reqAPI = `https://api.coingecko.com/api/v3/coins/${lowerCase}/market_chart/range?vs_currency=usd&from=${fromDateUnix}&to=${toDateUnix}`;
     //`https://api.coingecko.com/api/v3/coins/bitcoin/market_chart/range?vs_currency=usd&from=1667508894&to=1667595294`
 
     const hourly = await axios.get(reqAPI);
@@ -89,6 +105,7 @@ export const Coins = ({
   // Buy Coin
   const buyCoin = async (event) => {
     event.preventDefault();
+    alert("Purchase complete");
 
     console.log(position);
     const _coin = name;
@@ -168,22 +185,26 @@ export const Coins = ({
           <br></br>
           <h4 className="info">{description}</h4> */}
           <table>
-            <tr>
-              <th>Rank</th>
-              <th>24hr High</th>
-              <th>24hr Low</th>
-              <th>Total supply</th>
-              <th>Circulating Supply</th>
-              <th>All Time High</th>
-            </tr>
-            <tr>
-              <td>{rank}</td>
-              <td>${dailyHigh}</td>
-              <td>${dailyLow}</td>
-              <td>{totalSupply}</td>
-              <td>{circulatingSupply}</td>
-              <td>${ath}</td>
-            </tr>
+            <thead>
+              <tr>
+                <th>Rank</th>
+                <th>24hr High</th>
+                <th>24hr Low</th>
+                <th>Total supply</th>
+                <th>Circulating Supply</th>
+                <th>All Time High</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{rank}</td>
+                <td>${dailyHigh}</td>
+                <td>${dailyLow}</td>
+                <td>{totalSupply}</td>
+                <td>{circulatingSupply}</td>
+                <td>${ath}</td>
+              </tr>
+            </tbody>
           </table>
           <h4 className="info">{stripTags(coin.description)}</h4>
           <form className="purchase" onSubmit={buyCoin}>
