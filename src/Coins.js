@@ -16,6 +16,7 @@ export const Coins = ({
   index,
   account,
   bal,
+  buyCoinn,
 }) => {
   const [display, setDisplay] = useState(false);
   const [coin, setCoin] = useState("");
@@ -67,9 +68,9 @@ export const Coins = ({
     const toDateUnix = Math.floor(currentDateObj.getTime() / 1000);
     const fromDateUnix = toDateUnix - 24 * 60 * 60; //Math.floor(currentDateObj.getTime() / 1000);
 
-    console.log(currentDateObj);
-    console.log(fromDateUnix);
-    console.log(toDateUnix);
+    // console.log(currentDateObj);
+    // console.log(fromDateUnix);
+    // console.log(toDateUnix);
 
     const reqAPI = `https://api.coingecko.com/api/v3/coins/${lowerCase}/market_chart/range?vs_currency=usd&from=${fromDateUnix}&to=${toDateUnix}`;
     //`https://api.coingecko.com/api/v3/coins/bitcoin/market_chart/range?vs_currency=usd&from=1667508894&to=1667595294`
@@ -105,7 +106,8 @@ export const Coins = ({
   // Buy Coin
   const buyCoin = async (event) => {
     event.preventDefault();
-    alert("Purchase complete");
+    alert(`Your ${coin} purchase is complete`);
+    // const newBalance = _balance - _amount;
 
     console.log(position);
     const _coin = name;
@@ -133,6 +135,8 @@ export const Coins = ({
     const sending = await axios.post(reqAPi, obj);
 
     console.log(sending.data);
+
+    buyCoinn(event);
   };
 
   return (

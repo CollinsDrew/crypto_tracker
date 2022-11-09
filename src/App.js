@@ -15,6 +15,10 @@ function App() {
   const [account, setAccount] = useState("");
   const [bal, setBal] = useState(10000);
 
+  // Calling data from express
+  const profile =
+    "http://localhost:8011/account?account=0xac975011f66a9917a9790b7efb5f49f11e71b3e5";
+  console.log(profile.data);
   // Hooks
   // API and render as soon as page is loaded
   useEffect(() => {
@@ -75,6 +79,21 @@ function App() {
     }
   };
 
+  const buyCoinn = (args) => {
+    args.preventDefault();
+
+    const _args = args.target;
+
+    const _amount = _args.amount.value;
+    const _balance = _args.balance.value;
+    const _coin = _args.coin.value;
+    const _currentPrice = _args.currentPrice.value;
+    const _time = _args.time.value;
+    //const _id = _args._id.value;
+
+    console.log(_amount, _balance, _coin, _currentPrice, _time);
+  };
+
   return (
     <div className="coin-app">
       <div className="coin-search">
@@ -83,7 +102,7 @@ function App() {
           src={require("./CC_header.png")}
           alt="logo"
         ></img>
-        <WalletProfile />
+
         {/* Search Button element */}
         <form>
           <input
@@ -98,8 +117,10 @@ function App() {
         <button onClick={connectWallet} className="btn">
           Connect Wallet
         </button>
+
         <br />
       </div>
+      <WalletProfile account={account} />
       <div className="wallet-info">
         <h5>Welcome to Crypto Collins , {account}</h5>
         <br></br>
@@ -120,6 +141,7 @@ function App() {
             account={account}
             bal={bal}
             position={coin.position}
+            buyCoinn={buyCoinn}
           />
         );
       })}
