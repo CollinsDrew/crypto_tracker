@@ -4,9 +4,10 @@ import "./Wallet.css";
 
 const WalletProfile = (props) => {
   const address = props.account;
-  const [api, setApi] = useState([]);
 
   const all = props.all;
+
+  //   const newBalance = balance - amount;
 
   useEffect(() => {
     axios
@@ -14,28 +15,28 @@ const WalletProfile = (props) => {
       .then((res) => {
         // console.log(res.data);
         const resData = res.data;
-        setApi(() => resData);
+        props.setApi(() => resData);
         console.log(resData);
       })
       .catch((error) => console.log(error));
     // setApi(all);
   }, [address]);
 
-  console.log(api[api.length - 1]?.balance);
+  console.log(props.api[props.api.length - 1]?.balance);
   //   console.log(all);
   return (
     <div className="wallet-container">
-      <h3>Balance: ${api[api.length - 1]?.balance}</h3>
+      <h3> Balance: ${props.api[props.api.length - 1]?.balance}</h3>
       <table>
         <thead>
           <tr>
             <th>Coin</th>
-            <th>Total Purchase Value</th>
+            <th>Purchase Value</th>
             <th>Purchase Price</th>
           </tr>
         </thead>
         <tbody>
-          {api.map((value) => {
+          {props.api.map((value) => {
             return (
               <tr>
                 <td>{value.coin}</td>

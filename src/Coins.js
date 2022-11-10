@@ -16,7 +16,10 @@ export const Coins = ({
   index,
   account,
   bal,
+  setBal,
   buyCoinn,
+  api,
+  setApi,
 }) => {
   const [display, setDisplay] = useState(false);
   const [coin, setCoin] = useState("");
@@ -133,7 +136,10 @@ export const Coins = ({
     const reqAPi = "http://localhost:8011/purchase/create";
 
     const sending = await axios.post(reqAPi, obj);
-
+    console.log(_balance);
+    console.log(_amount);
+    setBal(_balance - _amount);
+    setApi([...api, obj]);
     console.log(sending.data);
 
     buyCoinn(sending.data);

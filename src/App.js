@@ -15,6 +15,7 @@ function App() {
   const [account, setAccount] = useState("");
   const [bal, setBal] = useState(10000);
   const [all, setAll] = useState([]);
+  const [api, setApi] = useState([]);
 
   // Calling data from express
   const profile =
@@ -141,11 +142,11 @@ function App() {
         <br />
       </div>
 
-      <WalletProfile all={all} account={account} />
+      <WalletProfile all={all} account={account} api={api} setApi={setApi} />
       <div className="wallet-info">
         <h5>Welcome to Crypto Collins , {account}</h5>
         <br></br>
-        <p>Balance: ${bal}</p>
+        {/* <p>Balance: ${bal}</p> */}
       </div>
       {filteredCoins.map((coin, index) => {
         return (
@@ -161,8 +162,11 @@ function App() {
             index={index}
             account={account}
             bal={bal}
+            setBal={setBal}
             position={coin.position}
             buyCoinn={buyCoinn}
+            api={api}
+            setApi={setApi}
           />
         );
       })}
