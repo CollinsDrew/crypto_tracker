@@ -15,6 +15,11 @@ const WalletProfile = (props) => {
       .then((res) => {
         // console.log(res.data);
         const resData = res.data;
+        let newBalance = props.bal;
+        for (let i = 0; i < res.data.length; i++) {
+          newBalance = newBalance - res.data[i].amount;
+        }
+        props.setBal(newBalance);
         props.setApi(() => resData);
         console.log(resData);
       })
@@ -26,7 +31,8 @@ const WalletProfile = (props) => {
   //   console.log(all);
   return (
     <div className="wallet-container">
-      <h3> Balance: ${props.api[props.api.length - 1]?.balance}</h3>
+      <h3> Balance: ${props.bal}</h3>
+      {/* <h3> Balance: ${props.api[props.api.length - 1]?.balance}</h3> */}
       <table>
         <thead>
           <tr>

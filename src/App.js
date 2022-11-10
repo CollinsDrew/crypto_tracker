@@ -142,7 +142,14 @@ function App() {
         <br />
       </div>
 
-      <WalletProfile all={all} account={account} api={api} setApi={setApi} />
+      <WalletProfile
+        all={all}
+        account={account}
+        api={api}
+        setApi={setApi}
+        bal={bal}
+        setBal={setBal}
+      />
       <div className="wallet-info">
         <h5>Welcome to Crypto Collins , {account}</h5>
         <br></br>
