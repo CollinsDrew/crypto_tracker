@@ -7,11 +7,11 @@ const WalletProfile = (props) => {
 
   const all = props.all;
 
-  //   const newBalance = balance - amount;
-
   useEffect(() => {
     axios
-      .get(`http://localhost:8011/account?account=${address}`)
+      .get(
+        `https://crypto-collins-api.netlify.app/.netlify/functions/api/account?account=${address}`
+      )
       .then((res) => {
         // console.log(res.data);
         const resData = res.data;
@@ -22,7 +22,7 @@ const WalletProfile = (props) => {
     // setApi(all);
   }, [address]);
 
-  console.log(props.api[props.api.length - 1]?.balance);
+  //   console.log(props.api[props.api.length - 1]?.balance);
   //   console.log(all);
   return (
     <div className="wallet-container">

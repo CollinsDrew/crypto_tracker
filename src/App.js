@@ -19,8 +19,8 @@ function App() {
 
   // Calling data from express
   const profile =
-    "http://localhost:8011/account?account=0xac975011f66a9917a9790b7efb5f49f11e71b3e5";
-  console.log(profile.data);
+    "https://crypto-collins-api.netlify.app/.netlify/functions/api/account?account=0xac975011f66a9917a9790b7efb5f49f11e71b3e5";
+  // console.log(profile.data);
   // Hooks
   // API and render as soon as page is loaded
   useEffect(() => {
@@ -32,7 +32,7 @@ function App() {
         setCoins(res.data);
         // console.log(res.data);
         const date = new Date();
-        console.log(date);
+        // console.log(date);
       })
       .catch((error) => console.log(error));
   }, [sample]);
@@ -105,12 +105,12 @@ function App() {
     //   balance: _balance,
     // };
 
-    // const reqAPi = "http://localhost:8011/purchase/create";
+    // const reqAPi = "https://crypto-collins-api.netlify.app/.netlify/functions/api/purchase/create";
 
     // const sending = await axios.post(reqAPi, obj);
 
     // console.log(sending.data);
-    console.log(args);
+    // console.log(args);
 
     setAll(args);
   };

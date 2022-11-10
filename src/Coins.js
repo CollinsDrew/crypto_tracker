@@ -112,7 +112,7 @@ export const Coins = ({
     alert(`Your ${coin} purchase is complete`);
     // const newBalance = _balance - _amount;
 
-    console.log(position);
+    // console.log(position);
     const _coin = name;
     // const _name = event.target.buy.value;
     const _account = account;
@@ -133,7 +133,8 @@ export const Coins = ({
       balance: _balance,
     };
 
-    const reqAPi = "http://localhost:8011/purchase/create";
+    const reqAPi =
+      "https://crypto-collins-api.netlify.app/.netlify/functions/api/purchase/create";
 
     const sending = await axios.post(reqAPi, obj);
     console.log(_balance);
@@ -180,20 +181,6 @@ export const Coins = ({
         <div className="row extra-box">
           <LineChart chartData={lab} />
 
-          {/* <br></br>
-          <h6 className="info"> Rank: {rank}</h6>
-          <br></br>
-          <h6 className="info"> 24hr High: ${dailyHigh}</h6>
-          <br></br>
-          <h6 className="info"> 24hr Low: ${dailyLow}</h6>
-          <br></br>
-          <h6 className="info"> Total Supply: {totalSupply}</h6>
-          <br></br>
-          <h6 className="info"> Circulating Supply: {circulatingSupply}</h6>
-          <br></br>
-          <h6 className="info"> All Time High: ${ath}</h6>
-          <br></br>
-          <h4 className="info">{description}</h4> */}
           <table>
             <thead>
               <tr>
@@ -218,7 +205,7 @@ export const Coins = ({
           </table>
           <h4 className="info">{stripTags(coin.description)}</h4>
           <form className="purchase" onSubmit={buyCoin}>
-            <input type="number" name="buy" required />
+            <input type="number" name="buy" placeholder="$" required />
 
             <input type="hidden" name="position" value="buy" />
             <input type="hidden" name="account" value={account} />
