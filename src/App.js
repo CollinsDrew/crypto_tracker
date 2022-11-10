@@ -14,6 +14,7 @@ function App() {
   // Web3
   const [account, setAccount] = useState("");
   const [bal, setBal] = useState(10000);
+  const [all, setAll] = useState([]);
 
   // Calling data from express
   const profile =
@@ -79,19 +80,38 @@ function App() {
     }
   };
 
-  const buyCoinn = (args) => {
-    args.preventDefault();
+  const buyCoinn = async (args) => {
+    // args.preventDefault();
 
-    const _args = args.target;
+    // const _args = args.target;
 
-    const _amount = _args.amount.value;
-    const _balance = _args.balance.value;
-    const _coin = _args.coin.value;
-    const _currentPrice = _args.currentPrice.value;
-    const _time = _args.time.value;
-    //const _id = _args._id.value;
+    // const _amount = _args.amount.value;
+    // const _balance = _args.balance;
+    // const _coin = _args.coin.value;
+    // const _currentPrice = _args.currentPrice.value;
+    // const _time = new Date();
+    // const _position = _args.buy.value;
 
-    console.log(_amount, _balance, _coin, _currentPrice, _time);
+    // alert(`Your ${_coin} purchase is complete`);
+
+    // const obj = {
+    //   account: account,
+    //   coin: _coin,
+    //   amount: _amount,
+    //   position: _position,
+    //   time: _time,
+    //   currentPrice: _currentPrice,
+    //   balance: _balance,
+    // };
+
+    // const reqAPi = "http://localhost:8011/purchase/create";
+
+    // const sending = await axios.post(reqAPi, obj);
+
+    // console.log(sending.data);
+    console.log(args);
+
+    setAll(args);
   };
 
   return (
@@ -120,7 +140,8 @@ function App() {
 
         <br />
       </div>
-      <WalletProfile account={account} />
+
+      <WalletProfile all={all} account={account} />
       <div className="wallet-info">
         <h5>Welcome to Crypto Collins , {account}</h5>
         <br></br>

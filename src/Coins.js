@@ -136,7 +136,7 @@ export const Coins = ({
 
     console.log(sending.data);
 
-    buyCoinn(event);
+    buyCoinn(sending.data);
   };
 
   return (
